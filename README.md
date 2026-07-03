@@ -123,6 +123,17 @@ To advance this documentation repository, search-tree blueprint, or MLOps automa
 * Generate a **comprehensive Markdown table** explicitly comparing Greedy Decoding, Random Sampling, Vanilla Beam Search, Diverse Beam Search (DBS), and Monte Carlo Tree Search (MCTS) across time complexities, VRAM cache tracking profiles, susceptibility to repetitive loops, and suitability for open-ended creative tasks versus closed-box logic tasks.
 * Establish a **performance evaluation harness using Triton** to profile exactly how compiling a fused top-$K$ selection step directly into fast GPU registers alters the overall wall-clock token generation throughput of high-concurrency cloud serving nodes.
 
+##  Star History
+<div align="center">
+<a href="https://www.star-history.com/?repos=ishandutta2007%2FAwesome-Beam-Search&type=date&legend=bottom-right">
+<picture>
+<source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ishandutta2007/Awesome-Beam-Search&type=date&theme=dark&legend=bottom-right" />
+<source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ishandutta2007/Awesome-Beam-Search&type=date&legend=bottom-right" />
+<img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ishandutta2007/Awesome-Beam-Search&type=date&legend=bottom-right" />
+</picture>
+</a>
+</div>
+
 ***
 
 **Contextual Related Topics:**
