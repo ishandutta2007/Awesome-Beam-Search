@@ -1,5 +1,10 @@
-# Awesome-Beam-Search
-## Beam Search in AI: History, Progression, Variants, & Applications
+# 🌟 Awesome-Beam-Search
+
+<p align="center">
+  <img src="assets/banner.svg" alt="Awesome Beam Search Banner" width="100%">
+</p>
+
+## 🧠 Beam Search in AI: History, Progression, Variants, & Applications
 
 Beam Search is a heuristic, graph-traversal search algorithm that optimizes sequential decision-making and token-decoding pipelines in Artificial Intelligence. Used extensively across Natural Language Processing (NLP), sequence-to-sequence translation, and speech-to-text systems, Beam Search operates between the high computational cost of an exhaustive **Breadth-First Search (BFS)** and the structural shortsightedness of a **Greedy Decoding** routine. 
 
@@ -7,7 +12,7 @@ Instead of tracking all alternative sequence paths or selecting only the single 
 
 ---
 
-## 1. The Macro Chronological Evolution
+## 📅 1. The Macro Chronological Evolution
 
 The implementation of sequential sequence search has transitioned from rigid heuristic lookaheads to deep neural sequence alignments, memory-pinned parallel trees, and native reinforcement-learned verification loops.
 
@@ -28,7 +33,7 @@ flowchart LR
 
 ---
 
-## 2. Core Functional & Algorithmic Search Variants
+## 🛠️ 2. Core Functional & Algorithmic Search Variants
 
 The Beam Search family tree features specialized architectural modifications engineered to balance vocabulary exploration breadth with structural constraint satisfaction.
 
@@ -41,7 +46,7 @@ The Beam Search family tree features specialized architectural modifications eng
 
 ---
 
-## 3. The Beam Search Caching & Routing Matrix
+## 🧮 3. The Beam Search Caching & Routing Matrix
 
 To execute multi-path tree unrolling without hitting GPU hardware walls, the runtime engine leverages optimized virtual block tables and memory-sharing mechanisms.
 
@@ -72,7 +77,7 @@ flowchart TB
 
 ---
 
-## 4. Production Engineering Challenges & Hardware Solutions
+## ⚡ 4. Production Engineering Challenges & Hardware Solutions
 
 Deploying multi-path beam search decoding over large-scale cloud-serving infrastructures introduces severe computing and memory bottlenecks.
 
@@ -83,7 +88,7 @@ Deploying multi-path beam search decoding over large-scale cloud-serving infrast
 
 ---
 
-## 5. Frontier Real-World AI Industrial Applications
+## 🚀 5. Frontier Real-World AI Industrial Applications
 
 | Industrial Application | Application Context & Implementation | First Used Year | First Used Paper |
 | :--- | :--- | :--- | :--- |
@@ -93,7 +98,7 @@ Deploying multi-path beam search decoding over large-scale cloud-serving infrast
 
 ---
 
-## References
+## 📚 References
 1. Bahdanau, D., Cho, K., & Bengio, Y. (2014). Neural machine translation by jointly learning to align and translate. *arXiv preprint arXiv:1409.0473*.
 2. Sutskever, I., Vinyals, O., & Le, Q. V. (2014). Sequence to sequence learning with neural networks. *Advances in Neural Information Processing Systems (NeurIPS)*, 27.
 3. Vijayakumar, A. K., et al. (2016). Diverse beam search: Decoding diverse solutions from neural sequence models. *arXiv preprint arXiv:1610.02424*.
