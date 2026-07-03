@@ -1,7 +1,17 @@
+<!--
+SEO Metadata
+Description: A curated repository of historical progression, functional variants, production challenges, and advanced inference-time search engineering in Beam Search algorithms.
+Keywords: Beam Search, Greedy Decoding, Diverse Beam Search, Speculative Decoding, PagedAttention, vLLM, LLM Inference, System 2, DeepSeek-R1, OpenAI o1, Speech-to-Text, Machine Translation
+-->
+
 # 🌟 Awesome-Beam-Search
 
 <p align="center">
   <img src="assets/banner.svg" alt="Awesome Beam Search Banner" width="100%">
+</p>
+
+<p align="center">
+  <a href="https://github.com/ishandutta2007/Awesome-Awesome-Awesome"><img src="https://img.shields.io/badge/Awesome-%E2%9C%94-blueviolet?style=flat-square&logo=github" alt="Awesome"/></a><a href="https://discord.gg/jc4xtF58Ve"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" /></a>
 </p>
 
 ## 🧠 Beam Search in AI: History, Progression, Variants, & Applications
