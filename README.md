@@ -11,9 +11,12 @@ Instead of tracking all alternative sequence paths or selecting only the single 
 
 The implementation of sequential sequence search has transitioned from rigid heuristic lookaheads to deep neural sequence alignments, memory-pinned parallel trees, and native reinforcement-learned verification loops.
 
-
 ```mermaid
-[Greedy Decoding Baseline] ───> [Vanilla Beam Search (2014-2018)] ───> [Diverse & Length-Calibrated Search] ───> [Test-Time Search Enclaves (o1/R1, 2024+)](Fragile Token-Level Traps)       (Repetitive, Degenerate Text Paths)       (Entropy Regularized Penalty Bounds)         (Compiler-In-The-Loop Verification)
+flowchart LR
+    A["Greedy Decoding Baseline<br/>(Token-Level Local Optima)"]
+    --> B["Vanilla Beam Search (2014–2018)<br/>(Repetitive & Degenerate Beam Paths)"]
+    --> C["Diverse & Length-Calibrated Search<br/>(Diversity-Promoting & Length-Normalized Decoding)"]
+    --> D["Test-Time Search Enclaves (o1/R1, 2024+)<br/>(Inference-Time Search & Verifiable Reasoning)"]
 ```
 
 *   **The Token-Level Intuition Era (Greedy Decoding Baseline)**
@@ -56,7 +59,22 @@ The Beam Search family tree features specialized architectural modifications eng
 To execute multi-path tree unrolling without hitting GPU hardware walls, the runtime engine leverages optimized virtual block tables and memory-sharing mechanisms.
 
 ```mermaid
-Copy-on-Write Memory Routing[Parent Token Cache: 0-64] ───┬───> [Child Branch A Table] ───> [Physical Block Index 11] (VRAM Page)└───> [Child Branch B Table] ───> [Physical Block Index 11] (Shared Cache)│▼[Causal Token Output] <─── [Select Top-B Paths] <─── [Compute Combined Log-Probabilities Matrix]
+flowchart TB
+    subgraph C["Copy-on-Write Memory Routing"]
+        A["Parent Token Cache: 0–64"]
+
+        A --> B["Child Branch A Table"]
+        A --> C1["Child Branch B Table"]
+
+        B --> D["Physical Block Index 11<br/>(VRAM Page)"]
+        C1 --> E["Physical Block Index 11<br/>(Shared Cache)"]
+
+        D --> F["Compute Combined Log-Probability Matrix"]
+        E --> F
+
+        F --> G["Select Top-B Paths"]
+        G --> H["Causal Token Output"]
+    end
 ```
 
 
