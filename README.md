@@ -12,7 +12,10 @@ Instead of tracking all alternative sequence paths or selecting only the single 
 The implementation of sequential sequence search has transitioned from rigid heuristic lookaheads to deep neural sequence alignments, memory-pinned parallel trees, and native reinforcement-learned verification loops.
 
 
+```mermaid
 [Greedy Decoding Baseline] ───> [Vanilla Beam Search (2014-2018)] ───> [Diverse & Length-Calibrated Search] ───> [Test-Time Search Enclaves (o1/R1, 2024+)](Fragile Token-Level Traps)       (Repetitive, Degenerate Text Paths)       (Entropy Regularized Penalty Bounds)         (Compiler-In-The-Loop Verification)
+```
+
 *   **The Token-Level Intuition Era (Greedy Decoding Baseline)**
     *   *Concept:* The entry-level sequence standard. The decoder outputs text by blindly selecting the absolute highest-probability token at step $t$, instantly feeding that token ID into the context window for step $t+1$.
     *   *Limitation:* Easily trapped in local minima. Selecting a high-probability token early on can inadvertently route the model into an absolute dead-end path where all subsequent tokens possess low structural probability, ruining long-range sentence cohesion.
@@ -30,21 +33,21 @@ The implementation of sequential sequence search has transitioned from rigid heu
 
 The Beam Search family tree features specialized architectural modifications engineered to balance vocabulary exploration breadth with structural constraint satisfaction.
 
-### A. Vanilla Beam Search (Cumulative Log-Likelihood)
-*   **Mechanism:** Maximizes the strict summation of conditional token log-probabilities over a fixed beam width $B$:
-    $$\text{Score}(Y) = \sum_{t=1}^{T} \log P(y_t | y_{<t}, X)$$
-*   **Behavior:** Tracks the highest joint probability paths deterministically, but is prone to repetitive content loops if optimized unconstrained.
+- ### A. Vanilla Beam Search (Cumulative Log-Likelihood)
+	*   **Mechanism:** Maximizes the strict summation of conditional token log-probabilities over a fixed beam width $B$:
+	    $$\text{Score}(Y) = \sum_{t=1}^{T} \log P(y_t | y_{<t}, X)$$
+	*   **Behavior:** Tracks the highest joint probability paths deterministically, but is prone to repetitive content loops if optimized unconstrained.
 
-### B. Diverse Beam Search (DBS)
-*   **Mechanism:** Partitions the $B$ available beams into $G$ independent structural groups. When expanding a path, it injects a **diversity penalty term** that mathematically de-values any token candidate that highly overlaps with tokens actively selected by parallel groups.
-*   **Pros:** Forces the model to explore completely different grammatical framings, vocabulary styles, or logical hypotheses concurrently, preventing structural monoculture.
+- ### B. Diverse Beam Search (DBS)
+	*   **Mechanism:** Partitions the $B$ available beams into $G$ independent structural groups. When expanding a path, it injects a **diversity penalty term** that mathematically de-values any token candidate that highly overlaps with tokens actively selected by parallel groups.
+	*   **Pros:** Forces the model to explore completely different grammatical framings, vocabulary styles, or logical hypotheses concurrently, preventing structural monoculture.
 
-### C. Constrained / Lexical Beam Search
-*   **Mechanism:** Imposes rigid, non-negotiable text token requirements on the decoding sequence. The search tree forces specific keywords, entity names, or API function arguments to be present within the path, pruning away any candidate branch that violates those boundary conditions.
-*   **Application:** Essential for enterprise tool-augmentation tasks matching strict backend schemas.
+- ### C. Constrained / Lexical Beam Search
+	*   **Mechanism:** Imposes rigid, non-negotiable text token requirements on the decoding sequence. The search tree forces specific keywords, entity names, or API function arguments to be present within the path, pruning away any candidate branch that violates those boundary conditions.
+	*   **Application:** Essential for enterprise tool-augmentation tasks matching strict backend schemas.
 
-### D. Lookahead / Speculative Beam Decoding
-*   **Mechanism:** Pairs a compact, low-parameter draft network with a massive target model. The draft model runs rapid multi-step beam lookaheads, while the target model verifies the complete tree branch simultaneously in a single, parallelized matrix multiplication pass.
+- ### D. Lookahead / Speculative Beam Decoding
+	*   **Mechanism:** Pairs a compact, low-parameter draft network with a massive target model. The draft model runs rapid multi-step beam lookaheads, while the target model verifies the complete tree branch simultaneously in a single, parallelized matrix multiplication pass.
 
 ---
 
@@ -52,7 +55,11 @@ The Beam Search family tree features specialized architectural modifications eng
 
 To execute multi-path tree unrolling without hitting GPU hardware walls, the runtime engine leverages optimized virtual block tables and memory-sharing mechanisms.
 
+```mermaid
 Copy-on-Write Memory Routing[Parent Token Cache: 0-64] ───┬───> [Child Branch A Table] ───> [Physical Block Index 11] (VRAM Page)└───> [Child Branch B Table] ───> [Physical Block Index 11] (Shared Cache)│▼[Causal Token Output] <─── [Select Top-B Paths] <─── [Compute Combined Log-Probabilities Matrix]
+```
+
+
 *   **Copy-on-Write Page Sharing (vLLM integration)**
     *   *Profile:* Slashes memory overhead during branching searches. When beam search forks into alternative candidate paths, the child branches do not duplicate the historical Key-Value (KV) cache. Instead, they share identical pointers to the parent memory blocks, allocating new physical memory blocks natively only when a branch writes a distinct token ID.
 *   **Logit Bias Modifier Layers**
